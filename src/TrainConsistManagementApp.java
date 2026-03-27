@@ -1,32 +1,39 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TrainConsistManagementApp {
 
-    public static void main(String[] args) {
+    // Bogie class
+    static class Bogie {
+        String name;
+        int capacity;
 
-        System.out.println("=======================================");
-        System.out.println(" UC6 - Map Bogie to Capacity ");
-        System.out.println("=======================================\n");
-
-        // Create HashMap (Bogie -> Capacity)
-        Map<String, Integer> bogieCapacity = new HashMap<>();
-
-        // ---- ADD MAPPINGS ----
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 60);
-        bogieCapacity.put("First Class", 40);
-
-        // ---- DISPLAY USING entrySet ----
-        System.out.println("Bogie Capacity Details:\n");
-
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println("Bogie: " + entry.getKey() +
-                    " | Capacity: " + entry.getValue());
+        Bogie(String name, int capacity) {
+            this.name = name;
+            this.capacity = capacity;
         }
 
-        System.out.println("\nTotal Bogie Types: " + bogieCapacity.size());
+        public String toString() {
+            return name + " (" + capacity + ")";
+        }
+    }
 
-        System.out.println("\nUC6 completed successfully...");
+    public static void main(String[] args) {
+
+        System.out.println("===== UC7: Sort Bogies by Capacity =====\n");
+
+        List<Bogie> bogies = new ArrayList<>();
+
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("First Class", 40));
+
+        System.out.println("Before Sorting:");
+        System.out.println(bogies);
+
+        // Sorting using Comparator
+        bogies.sort((b1, b2) -> b2.capacity - b1.capacity);
+
+        System.out.println("\nAfter Sorting (Descending by Capacity):");
+        System.out.println(bogies);
     }
 }
