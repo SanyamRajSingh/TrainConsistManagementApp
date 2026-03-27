@@ -1,8 +1,8 @@
 import java.util.*;
+import java.util.stream.*;
 
 public class TrainConsistManagementApp {
 
-    // Bogie class
     static class Bogie {
         String name;
         int capacity;
@@ -19,21 +19,19 @@ public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("===== UC7: Sort Bogies by Capacity =====\n");
+        System.out.println("===== UC8: Filter Bogies (capacity > 60) =====\n");
 
-        List<Bogie> bogies = new ArrayList<>();
+        List<Bogie> bogies = List.of(
+                new Bogie("Sleeper", 72),
+                new Bogie("AC Chair", 60),
+                new Bogie("First Class", 40)
+        );
 
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
+        List<Bogie> filtered = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
 
-        System.out.println("Before Sorting:");
-        System.out.println(bogies);
-
-        // Sorting using Comparator
-        bogies.sort((b1, b2) -> b2.capacity - b1.capacity);
-
-        System.out.println("\nAfter Sorting (Descending by Capacity):");
-        System.out.println(bogies);
+        System.out.println("Filtered Bogies:");
+        System.out.println(filtered);
     }
 }
