@@ -7,18 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrainConsistManagementAppTest {
 
     @Test
-    void testSafe() {
-        List<TrainConsistManagementApp.Bogie> list = Arrays.asList(
-                new TrainConsistManagementApp.Bogie("Cylindrical", "Petroleum")
-        );
-        assertTrue(TrainConsistManagementApp.isSafe(list));
-    }
+    void testPerformanceMethodsRun() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) list.add(i);
 
-    @Test
-    void testUnsafe() {
-        List<TrainConsistManagementApp.Bogie> list = Arrays.asList(
-                new TrainConsistManagementApp.Bogie("Cylindrical", "Coal")
-        );
-        assertFalse(TrainConsistManagementApp.isSafe(list));
+        long stream = TrainConsistManagementApp.streamTime(list);
+        long loop = TrainConsistManagementApp.loopTime(list);
+
+        assertTrue(stream > 0);
+        assertTrue(loop > 0);
     }
 }

@@ -4,27 +4,32 @@ import java.util.*;
 
 public class TrainConsistManagementApp {
 
-    static class Bogie {
-        String type, cargo;
-
-        Bogie(String t, String c) {
-            type = t;
-            cargo = c;
-        }
+    public static long streamTime(List<Integer> list) {
+        long start = System.nanoTime();
+        list.stream().filter(x -> x % 2 == 0).count();
+        long end = System.nanoTime();
+        return end - start;
     }
 
-    public static boolean isSafe(List<Bogie> list) {
-        return list.stream()
-                .allMatch(b -> !b.type.equals("Cylindrical")
-                        || b.cargo.equals("Petroleum"));
+    public static long loopTime(List<Integer> list) {
+        long start = System.nanoTime();
+        int count = 0;
+        for (int x : list) {
+            if (x % 2 == 0) count++;
+        }
+        long end = System.nanoTime();
+        return end - start;
     }
 
     public static void main(String[] args) {
-        List<Bogie> list = Arrays.asList(
-                new Bogie("Cylindrical", "Petroleum"),
-                new Bogie("Box", "Coal")
-        );
 
-        System.out.println("Safe: " + isSafe(list));
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 100000; i++) list.add(i);
+
+        long stream = streamTime(list);
+        long loop = loopTime(list);
+
+        System.out.println("Stream Time: " + stream);
+        System.out.println("Loop Time: " + loop);
     }
 }
