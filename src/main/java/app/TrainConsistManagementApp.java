@@ -1,25 +1,19 @@
 package app;
 
-import java.util.*;
+import java.util.regex.Pattern;
 
 public class TrainConsistManagementApp {
 
-    static class Bogie {
-        int capacity;
-        Bogie(int c) { capacity = c; }
+    public static boolean validateTrain(String id) {
+        return Pattern.matches("TRN-\\d{4}", id);
     }
 
-    public static int totalCapacity(List<Bogie> bogies) {
-        return bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
+    public static boolean validateCargo(String code) {
+        return Pattern.matches("PET-[A-Z]{2}", code);
     }
 
     public static void main(String[] args) {
-        List<Bogie> list = Arrays.asList(
-                new Bogie(72), new Bogie(60), new Bogie(40)
-        );
-
-        System.out.println("Total: " + totalCapacity(list));
+        System.out.println(validateTrain("TRN-1234"));
+        System.out.println(validateCargo("PET-AB"));
     }
 }
