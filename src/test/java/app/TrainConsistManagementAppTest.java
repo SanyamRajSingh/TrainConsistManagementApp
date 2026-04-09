@@ -1,20 +1,22 @@
 package app;
 
 import org.junit.jupiter.api.Test;
-import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TrainConsistManagementAppTest {
 
     @Test
-    void testPerformanceMethodsRun() {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) list.add(i);
+    void testValidCapacity() throws Exception {
+        TrainConsistManagementApp.Bogie b =
+                TrainConsistManagementApp.createBogie(50);
+        assertNotNull(b);
+    }
 
-        long stream = TrainConsistManagementApp.streamTime(list);
-        long loop = TrainConsistManagementApp.loopTime(list);
-
-        assertTrue(stream > 0);
-        assertTrue(loop > 0);
+    @Test
+    void testInvalidCapacity() {
+        assertThrows(
+                TrainConsistManagementApp.InvalidCapacityException.class,
+                () -> TrainConsistManagementApp.createBogie(-10)
+        );
     }
 }
