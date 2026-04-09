@@ -2,35 +2,39 @@ package app;
 
 public class TrainConsistManagementApp {
 
-    // Custom Exception
-    static class InvalidCapacityException extends Exception {
-        InvalidCapacityException(String msg) {
+    static class CargoSafetyException extends RuntimeException {
+        CargoSafetyException(String msg) {
             super(msg);
         }
     }
 
-    static class Bogie {
-        int capacity;
+    static class GoodsBogie {
+        String shape;
+        String cargo;
 
-        Bogie(int capacity) throws InvalidCapacityException {
-            if (capacity <= 0) {
-                throw new InvalidCapacityException("Capacity must be greater than zero");
-            }
-            this.capacity = capacity;
+        GoodsBogie(String shape) {
+            this.shape = shape;
         }
-    }
 
-    // METHOD FOR TEST
-    public static Bogie createBogie(int capacity) throws InvalidCapacityException {
-        return new Bogie(capacity);
+        void assignCargo(String cargo) {
+            try {
+                if (shape.equals("Rectangular") && cargo.equals("Petroleum")) {
+                    throw new CargoSafetyException("Unsafe cargo assignment!");
+                }
+                this.cargo = cargo;
+                System.out.println("Cargo assigned: " + cargo);
+
+            } catch (CargoSafetyException e) {
+                System.out.println("Error: " + e.getMessage());
+
+            } finally {
+                System.out.println("Assignment attempt completed");
+            }
+        }
     }
 
     public static void main(String[] args) {
-
-        try {
-            Bogie b = createBogie(-10);
-        } catch (InvalidCapacityException e) {
-            System.out.println(e.getMessage());
-        }
+        GoodsBogie g = new GoodsBogie("Rectangular");
+        g.assignCargo("Petroleum");
     }
 }
