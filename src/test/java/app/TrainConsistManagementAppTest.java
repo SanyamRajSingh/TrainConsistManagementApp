@@ -1,17 +1,24 @@
 package app;
 
 import org.junit.jupiter.api.Test;
+import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TrainConsistManagementAppTest {
 
     @Test
-    void testValidTrain() {
-        assertTrue(TrainConsistManagementApp.validateTrain("TRN-1234"));
+    void testSafe() {
+        List<TrainConsistManagementApp.Bogie> list = Arrays.asList(
+                new TrainConsistManagementApp.Bogie("Cylindrical", "Petroleum")
+        );
+        assertTrue(TrainConsistManagementApp.isSafe(list));
     }
 
     @Test
-    void testInvalidTrain() {
-        assertFalse(TrainConsistManagementApp.validateTrain("TRN-12"));
+    void testUnsafe() {
+        List<TrainConsistManagementApp.Bogie> list = Arrays.asList(
+                new TrainConsistManagementApp.Bogie("Cylindrical", "Coal")
+        );
+        assertFalse(TrainConsistManagementApp.isSafe(list));
     }
 }
