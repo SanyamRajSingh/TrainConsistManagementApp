@@ -1,39 +1,25 @@
 package app;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TrainConsistManagementApp {
 
     static class Bogie {
-        String type;
         int capacity;
-
-        Bogie(String type, int capacity) {
-            this.type = type;
-            this.capacity = capacity;
-        }
-
-        @Override
-        public String toString() {
-            return type + " (" + capacity + ")";
-        }
+        Bogie(int c) { capacity = c; }
     }
 
-    // METHOD FOR TESTING
-    public static Map<String, List<Bogie>> groupByType(List<Bogie> bogies) {
+    public static int totalCapacity(List<Bogie> bogies) {
         return bogies.stream()
-                .collect(Collectors.groupingBy(b -> b.type));
+                .map(b -> b.capacity)
+                .reduce(0, Integer::sum);
     }
 
     public static void main(String[] args) {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Passenger", 72),
-                new Bogie("Passenger", 60),
-                new Bogie("Goods", 0)
+        List<Bogie> list = Arrays.asList(
+                new Bogie(72), new Bogie(60), new Bogie(40)
         );
 
-        Map<String, List<Bogie>> result = groupByType(bogies);
-        System.out.println(result);
+        System.out.println("Total: " + totalCapacity(list));
     }
 }

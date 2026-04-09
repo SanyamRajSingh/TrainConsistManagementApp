@@ -7,17 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrainConsistManagementAppTest {
 
     @Test
-    void testGrouping() {
+    void testTotalCapacity() {
         List<TrainConsistManagementApp.Bogie> list = Arrays.asList(
-                new TrainConsistManagementApp.Bogie("Passenger", 72),
-                new TrainConsistManagementApp.Bogie("Passenger", 60),
-                new TrainConsistManagementApp.Bogie("Goods", 0)
+                new TrainConsistManagementApp.Bogie(72),
+                new TrainConsistManagementApp.Bogie(60),
+                new TrainConsistManagementApp.Bogie(40)
         );
 
-        Map<String, List<TrainConsistManagementApp.Bogie>> result =
-                TrainConsistManagementApp.groupByType(list);
-
-        assertEquals(2, result.get("Passenger").size());
-        assertEquals(1, result.get("Goods").size());
+        int result = TrainConsistManagementApp.totalCapacity(list);
+        assertEquals(172, result);
     }
 }
