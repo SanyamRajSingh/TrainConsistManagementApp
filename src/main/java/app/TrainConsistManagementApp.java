@@ -1,40 +1,34 @@
 package app;
 
+import java.util.Arrays;
+
 public class TrainConsistManagementApp {
 
-    static class CargoSafetyException extends RuntimeException {
-        CargoSafetyException(String msg) {
-            super(msg);
-        }
-    }
+    // Bubble Sort Method
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
 
-    static class GoodsBogie {
-        String shape;
-        String cargo;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
 
-        GoodsBogie(String shape) {
-            this.shape = shape;
-        }
-
-        void assignCargo(String cargo) {
-            try {
-                if (shape.equals("Rectangular") && cargo.equals("Petroleum")) {
-                    throw new CargoSafetyException("Unsafe cargo assignment!");
+                if (arr[j] > arr[j + 1]) {
+                    // swap
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
                 }
-                this.cargo = cargo;
-                System.out.println("Cargo assigned: " + cargo);
-
-            } catch (CargoSafetyException e) {
-                System.out.println("Error: " + e.getMessage());
-
-            } finally {
-                System.out.println("Assignment attempt completed");
             }
         }
     }
 
     public static void main(String[] args) {
-        GoodsBogie g = new GoodsBogie("Rectangular");
-        g.assignCargo("Petroleum");
+
+        int[] capacities = {72, 56, 24, 70, 60};
+
+        System.out.println("Before Sort: " + Arrays.toString(capacities));
+
+        bubbleSort(capacities);
+
+        System.out.println("After Sort: " + Arrays.toString(capacities));
     }
 }
